@@ -1,0 +1,12 @@
+<template>
+  <div class="slds-expression">
+    <h2 class="slds-expression__title">{labels.title}</h2>
+    <c-expression-group
+      is-root="true"
+      resources={resources}
+      operators={operators}
+      onexpressionchange={handleExpressionChange}
+    >
+    </c-expression-group>
+  </div>
+</template>

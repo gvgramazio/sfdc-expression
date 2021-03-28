@@ -1,0 +1,135 @@
+<template>
+  <template if:true={isRoot}>
+    <div class="slds-expression__options">
+      <lightning-combobox
+        label={labels.takeAction}
+        options={triggers}
+        onchange={handleTriggerChange}
+      >
+      </lightning-combobox>
+    </div>
+    <template if:true={isCustomLogic}>
+      <div class="slds-expression__custom-logic">
+        <lightning-input
+          type="text"
+          label={labels.customLogic}
+          value={customLogic}
+          onchange={handleCustomLogicChange}
+        >
+        </lightning-input>
+      </div>
+    </template>
+    <ul>
+      <template iterator:it={_conditions}>
+        <template if:true={it.value.isGroup}>
+          <li key={it.value.index} class="slds-expression__group">
+            <c-expression-group
+              index={it.index}
+              labels={it.value.labels}
+              resources={resources}
+              operators={operators}
+              onexpressionchange={handleExpressionChange}
+              ondelete={deleteCondition}
+            >
+            </c-expression-group>
+          </li>
+        </template>
+        <template if:false={it.value.isGroup}>
+          <li key={it.value.index} class="slds-expression__row">
+            <c-expression-condition
+              index={it.index}
+              labels={it.value.labels}
+              resources={resources}
+              operators={operators}
+              onexpressionchange={handleExpressionChange}
+              ondelete={deleteCondition}
+            >
+            </c-expression-condition>
+          </li>
+        </template>
+      </template>
+    </ul>
+    <template if:true={_selectedTriggerType}>
+      <div class="slds-expression__buttons">
+        <lightning-button-group>
+          <lightning-button
+            icon-name="utility:add"
+            label={labels.addCondition}
+            onclick={addCondition}
+          >
+          </lightning-button>
+          <lightning-button
+            icon-name="utility:add"
+            label={labels.addGroup}
+            onclick={addGroup}
+          >
+          </lightning-button>
+        </lightning-button-group>
+      </div>
+    </template>
+  </template>
+  <template if:false={isRoot}>
+    <fieldset>
+      <legend class="slds-expression__legend slds-expression__legend_group">
+        <span>{labels.label}</span>
+        <span class="slds-assistive-text">{assistiveText.title}</span>
+      </legend>
+      <div class="slds-expression__options">
+        <lightning-combobox
+          label={labels.takeAction}
+          options={triggers}
+          onchange={handleTriggerChange}
+        >
+        </lightning-combobox>
+      </div>
+      <ul>
+        <template iterator:it={_conditions}>
+          <template if:true={it.value.isGroup}>
+            <li key={it.value.index} class="slds-expression__group">
+              <c-expression-group
+                index={it.index}
+                labels={it.value.labels}
+                resources={resources}
+                operators={operators}
+                onexpressionchange={handleExpressionChange}
+                ondelete={deleteCondition}
+              >
+              </c-expression-group>
+            </li>
+          </template>
+          <template if:false={it.value.isGroup}>
+            <li key={it.value.index} class="slds-expression__row">
+              <c-expression-condition
+                index={it.index}
+                labels={it.value.labels}
+                resources={resources}
+                operators={operators}
+                onexpressionchange={handleExpressionChange}
+                ondelete={deleteCondition}
+              >
+              </c-expression-condition>
+            </li>
+          </template>
+        </template>
+      </ul>
+      <template if:true={_selectedTriggerType}>
+        <div class="slds-expression__buttons">
+          <lightning-button-group>
+            <lightning-button
+              icon-name="utility:add"
+              label="Add Condition"
+              onclick={addCondition}
+            >
+            </lightning-button>
+            <lightning-button
+              icon-name="utility:add"
+              label="Add Group"
+              onclick={addGroup}
+            >
+            </lightning-button>
+          </lightning-button-group>
+        </div>
+      </template>
+    </fieldset>
+  </template>
+</template>

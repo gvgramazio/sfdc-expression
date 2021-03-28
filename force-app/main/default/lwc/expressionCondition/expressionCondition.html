@@ -1,0 +1,45 @@
+<template>
+  <fieldset>
+    <legend class="slds-expression__legend">
+      <span>{labels.label}</span>
+      <span class="slds-assistive-text">{assistiveText.title}</span>
+    </legend>
+    <div class="slds-grid slds-gutters_xx-small">
+      <div class="slds-col">
+        <lightning-combobox
+          options={resources}
+          label={labels.resource}
+          placeholder="Select..."
+          onchange={handleResourceChange}
+        >
+        </lightning-combobox>
+      </div>
+      <div class="slds-col slds-grow-none">
+        <lightning-combobox
+          options={operators}
+          label={labels.operator}
+          placeholder="Select..."
+          disabled={isOperatorDisabled}
+          onchange={handleOperatorChange}
+        >
+        </lightning-combobox>
+      </div>
+      <div class="slds-col">
+        <lightning-input
+          value={value}
+          label={labels.value}
+          disabled={isValueDisabled}
+          onchange={handleValueChange}
+        >
+        </lightning-input>
+      </div>
+      <div class="slds-col slds-grow-none slds-align-bottom">
+        <lightning-button-icon
+          icon-name="utility:delete"
+          alternative-text={labels.deleteCondition}
+          onclick={deleteCondition}
+        ></lightning-button-icon>
+      </div>
+    </div>
+  </fieldset>
+</template>
